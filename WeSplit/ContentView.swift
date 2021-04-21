@@ -4,6 +4,17 @@
 //
 //  Created by Leotis buchanan on 2021-04-21.
 //
+/*
+Now we’re going to add a second picker view to our app, but this time we want something slightly
+different: we want a segmented control. This is a specialized kind of picker that shows a handful of
+options in a horizontal list, and it works great when you have only a small selection to choose from.
+
+Our form already has two sections: one for the amount and number of people, and one where we’ll show
+the final result – it’s just showing checkAmount for now, but we’re going to fix it soon.
+
+In the middle of those two sections I’d like you to add a third to show tip percentages:
+
+*/
 
 import SwiftUI
 
@@ -23,28 +34,34 @@ struct ContentView: View {
     
     var body: some View {
         NavigationView {
-        
-        Form {
             
-            Section {
-                TextField("Amount", text:$checkoutAmount)
-                    .keyboardType(.decimalPad)
+            Form {
                 
-                Picker("Number of people", selection:$numberOfPeople){
-                    ForEach(2 ..< 100){
-                        Text("\($0) people")
+                Section {
+                    TextField("Amount", text:$checkoutAmount)
+                        .keyboardType(.decimalPad)
+                    
+                    Picker("Number of people", selection:$numberOfPeople){
+                        ForEach(2 ..< 100){
+                            Text("\($0) people")
+                        }
+                        
                     }
                     
                 }
                 
-            }
+                Section(header:Text("How much tip do you want to leave")) {
+                    Picker("Tip percentage", selection: $tipPercentage){
+                        ForEach(0 ..< tipPercentages.count){
+                            Text("\(self.tipPercentages[$0])%")
+                            
+                        }
+                    }
+                    .pickerStyle(SegmentedPickerStyle())
+                }
+                
+            }.navigationTitle("WeSplit")
             
-            Section {
-                Text("$\(checkoutAmount)")
-            }
-            
-        }.navigationTitle("WeSplit")
-        
         }}
 }
 
