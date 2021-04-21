@@ -22,20 +22,30 @@ struct ContentView: View {
     @State private var selectedStudent = 0
     
     var body: some View {
+        NavigationView {
+        
         Form {
             
             Section {
                 TextField("Amount", text:$checkoutAmount)
                     .keyboardType(.decimalPad)
+                
+                Picker("Number of people", selection:$numberOfPeople){
+                    ForEach(2 ..< 100){
+                        Text("\($0) people")
+                    }
+                    
+                }
+                
             }
             
             Section {
                 Text("$\(checkoutAmount)")
             }
             
-        }
+        }.navigationTitle("WeSplit")
         
-    }
+        }}
 }
 
 struct ContentView_Previews: PreviewProvider {
