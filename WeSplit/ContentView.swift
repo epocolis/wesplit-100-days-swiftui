@@ -9,23 +9,33 @@ import SwiftUI
 
 struct ContentView: View {
     
-   let students = ["Harry", "Hermione", "Ron"]
+    @State private var checkoutAmount = ""
+    @State private var numberOfPeople = 2
+    @State private var tipPercentage = 2
+    
+    
+    let tipPercentages = [10,15,20,25,0]
+    
+    
+    
+    let students = ["Harry", "Hermione", "Ron"]
     @State private var selectedStudent = 0
     
     var body: some View {
-        VStack {
-            Picker("Select your student", selection:$selectedStudent){
-                ForEach(0 ..< students.count) {
-                    Text(self.students[$0])
-                
+        Form {
+            
+            Section {
+                TextField("Amount", text:$checkoutAmount)
+                    .keyboardType(.decimalPad)
             }
-                
-               
+            
+            Section {
+                Text("$\(checkoutAmount)")
+            }
+            
         }
-            Text("You chose: Student # \(students[selectedStudent])")
-       
+        
     }
-}
 }
 
 struct ContentView_Previews: PreviewProvider {
