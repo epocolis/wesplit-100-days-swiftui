@@ -32,6 +32,18 @@ struct ContentView: View {
     let students = ["Harry", "Hermione", "Ron"]
     @State private var selectedStudent = 0
     
+    
+    var totalPerson: Double {
+        let peopleCount = Double(numberOfPeople + 2)
+        let tipSelection = Double(tipPercentages[tipPercentage])
+        
+        let orderAmount = Double(checkoutAmount) ?? 0
+        let tipValue = orderAmount / 100 * tipSelection
+        let grandTotal = orderAmount + tipValue
+        let amountPerPerson = grandTotal / peopleCount
+        
+        return amountPerPerson
+    }
     var body: some View {
         NavigationView {
             
@@ -58,6 +70,11 @@ struct ContentView: View {
                         }
                     }
                     .pickerStyle(SegmentedPickerStyle())
+                }
+                
+                
+                Section{
+                    Text("$\(totalPerson)")
                 }
                 
             }.navigationTitle("WeSplit")
